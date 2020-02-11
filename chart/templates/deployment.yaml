@@ -1,0 +1,31 @@
+{{- range $name, $service := .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ $name }}"
+  labels:
+    dev.okteto.com/mola: "{{ $name }}"
+    app.kubernetes.io/component: "{{ $name }}"
+    app.kubernetes.io/instance: "test"
+spec:
+  replicas: {{ $service.replicas }}
+  selector:
+    matchLabels:
+      dev.okteto.com/mola: "{{ $name }}"
+  template:
+    metadata:
+      labels:
+        dev.okteto.com/mola: "{{ $name }}"
+    spec:
+      containers:
+        - name: "{{ $name }}"
+          image: "{{ $service.image }}"
+          {{ if $service.ports }}ports:
+            {{- range $port := $service.ports }}
+            - containerPort: {{ $port }}{{ end }}{{ end }}
+          {{ if $service.env }}env:
+            {{- range $env := $service.env }}
+            - name: {{ (splitn "=" 2 $env)._0 }}
+              value: {{ (splitn "=" 2 $env)._1 }}{{ end }}{{ end }}
+---
+{{- end }}

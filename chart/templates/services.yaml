@@ -1,0 +1,20 @@
+{{- range $name, $service := .Values.services }}
+{{ if $service.ports }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ $name }}"
+  labels:
+    dev.okteto.com/mola: "{{ $name }}"
+    app.kubernetes.io/component: "{{ $name }}"
+    app.kubernetes.io/instance: "test"
+spec:
+  type: {{ if $service.public }}LoadBalancer{{ else }}ClusterIP{{ end }}
+  ports:
+  {{- range $port := $service.ports }}
+  - port: {{ $port }}{{ end }}
+  selector:
+    dev.okteto.com/mola: "{{ $name }}"
+---
+{{- end }}
+{{- end }}
