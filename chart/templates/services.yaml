@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ include "mola.fullname" $ }}-{{ $name }}"
+  name: "{{ $name }}"
   labels:
     dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"

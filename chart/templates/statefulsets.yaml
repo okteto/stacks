@@ -1,13 +1,15 @@
 {{- range $name, $service := .Values.services }}
+{{ if $service.volumes }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: "{{ include "mola.fullname" $ }}-{{ $name }}"
+  name: "{{ $name }}"
   labels:
     dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"
     {{- include "mola.labels" $ | nindent 4 }}
 spec:
+  serviceName: "{{ $name }}"
   replicas: {{ $service.replicas }}
   selector:
     matchLabels:
@@ -39,5 +41,22 @@ spec:
               value: {{ (splitn "=" 2 $env)._1 }}
             {{ end }}
           {{ end }}
+          volumeMounts:
+            {{- range $index, $volume := $service.volumes }}
+            - name: "volume-{{ $index }}"
+              subPath: "data"
+              mountPath: {{ $volume }}
+            {{ end }}
+  volumeClaimTemplates:
+    {{- range $index, $volume := $service.volumes }}
+    - metadata:
+        name: "volume-{{ $index }}"
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi
+    {{ end }}
 ---
+{{- end }}
 {{- end }}
