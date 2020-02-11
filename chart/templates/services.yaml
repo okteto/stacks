@@ -8,8 +8,12 @@ metadata:
     dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"
     {{- include "mola.labels" $ | nindent 4 }}
+  {{ if $service.public }}
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+  {{ end }}
 spec:
-  type: {{ if $service.public }}LoadBalancer{{ else }}ClusterIP{{ end }}
+  type: ClusterIP
   ports:
   {{- range $port := $service.ports }}
   - port: {{ $port }}
