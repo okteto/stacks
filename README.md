@@ -17,12 +17,17 @@ services:
   vote:
     public: true
     image: dockersamples/examplevotingapp_vote:before
+    replicas: 2
+    env:
+      - OPTION_A=Compose
+      - OPTION_B=Helm
     ports:
       - 80
 
   result:
     public: true
     image: dockersamples/examplevotingapp_result:before
+    command: node server.js
     ports:
       - 80
 
@@ -33,6 +38,8 @@ services:
     image: postgres:9.4
     ports:
       - 5432
+    volumes:
+      - /var/lib/postgresql/data
 
   redis:
     image: redis:alpine
