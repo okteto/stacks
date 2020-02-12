@@ -23,9 +23,21 @@ spec:
           image: "{{ $service.image }}"
           {{ if $service.command }}
           command:
+          {{ if eq (typeOf $service.command) "string" }}
             - sh
             - -c
             - {{ $service.command }}
+          {{ else }}
+            {{- range $command := $service.command }}
+            - {{ $command }}
+            {{ end }}
+          {{ end }}
+          {{ end }}
+          {{ if $service.args }}
+          args:
+            {{- range $arg := $service.args }}
+            - {{ $arg }}
+            {{ end }}
           {{ end }}
           {{ if $service.ports }}
           ports:
