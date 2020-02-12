@@ -71,4 +71,5 @@ helm template test ./chart -f mola.yaml
 
 - `mola deploy` and `mola destroy` commands to abstract the Helm based implementation.
 - Add `build` directives to the Mola yaml format.
+- Support environment variables extrapolation.
 - `mola logs`, `mola exec` and `mola metrics`.
