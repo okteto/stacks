@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  mola:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-02-13T13:31:23.797951+01:00"
+    description: A Helm chart for deploying containerized applications
+    digest: 2e18df2b22d331c26491e288964fec7b606a2f0de8b14030b6c7fb3938631fb1
+    name: mola
+    type: application
+    urls:
+    - https://okteto.github.io/stack/chart/mola-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-02-13T13:31:23.797516+01:00"
