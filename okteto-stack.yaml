@@ -4,8 +4,8 @@ services:
     image: dockersamples/examplevotingapp_vote:before
     replicas: 2
     env:
-      - OPTION_A=Compose
-      - OPTION_B=Helm
+      - OPTION_A=Cats
+      - OPTION_B=Dogs
     ports:
       - 80
 
