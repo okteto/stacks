@@ -70,6 +70,6 @@ helm template test ./chart -f okteto-stack.yaml
 # Future work
 
 - `okteto stack deploy` and `okteto stack destroy` commands to abstract the Helm based implementation.
-- Add `build` directives to the staack yaml format.
+- Add `build` directives to the stack yaml format.
 - Support environment variables extrapolation.
 - `okteto stack ps`, `okteto stack logs`, `okteto stack exec` and `okteto stack metrics`.
