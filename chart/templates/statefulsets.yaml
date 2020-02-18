@@ -5,19 +5,22 @@ kind: StatefulSet
 metadata:
   name: "{{ $name }}"
   labels:
-    dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
+    stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
+    stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"
-    {{- include "mola.labels" $ | nindent 4 }}
+    {{- include "stack.labels" $ | nindent 4 }}
 spec:
   serviceName: "{{ $name }}"
   replicas: {{ $service.replicas }}
   selector:
     matchLabels:
-      dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
+      stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
+      stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
   template:
     metadata:
       labels:
-        dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
+        stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
+        stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
     spec:
       containers:
         - name: "{{ $name }}"
@@ -55,14 +58,17 @@ spec:
           {{ end }}
           volumeMounts:
             {{- range $index, $volume := $service.volumes }}
-            - name: "volume-{{ $index }}"
+            - name: "pvc-{{ $index }}"
               subPath: "data"
               mountPath: {{ $volume }}
             {{ end }}
   volumeClaimTemplates:
     {{- range $index, $volume := $service.volumes }}
     - metadata:
-        name: "volume-{{ $index }}"
+        name: "pvc-{{ $index }}"
+        labels:
+          stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
+          stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
       spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:

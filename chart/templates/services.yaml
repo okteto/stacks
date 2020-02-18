@@ -5,17 +5,23 @@ kind: Service
 metadata:
   name: "{{ $name }}"
   labels:
-    dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
+    stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
+    stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"
-    {{- include "mola.labels" $ | nindent 4 }}
+    {{- include "stack.labels" $ | nindent 4 }}
+  {{ if and ($service.public) ($.Values.okteto) }}
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+  {{ end }}
 spec:
-  type: {{ if $service.public }}LoadBalancer{{ else }}ClusterIP{{ end }}
+  type: {{ if and ($service.public) (not $.Values.okteto) }}LoadBalancer{{ else }}ClusterIP{{ end }}
   ports:
   {{- range $port := $service.ports }}
   - port: {{ $port }}
   {{ end }}
   selector:
-    dev.okteto.com/mola: "{{ include "mola.fullname" $ }}-{{ $name }}"
+    stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
+    stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
 ---
 {{- end }}
 {{- end }}
