@@ -19,8 +19,8 @@ services:
     image: dockersamples/examplevotingapp_vote:before
     replicas: 2
     env:
-      - OPTION_A=Compose
-      - OPTION_B=Helm
+      - OPTION_A=Cats
+      - OPTION_B=Dogs
     ports:
       - 80
 
@@ -72,4 +72,4 @@ helm template test ./chart -f okteto-stack.yaml
 - `okteto stack deploy` and `okteto stack destroy` commands to abstract the Helm based implementation.
 - Add `build` directives to the stack yaml format.
 - Support environment variables extrapolation.
-- `okteto stack ps`, `okteto stack logs`, `okteto stack exec` and `okteto stack metrics`.
+- `okteto stack ps` and `okteto stack logs`.
