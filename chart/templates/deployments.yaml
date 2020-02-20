@@ -5,21 +5,22 @@ kind: Deployment
 metadata:
   name: "{{ $name }}"
   labels:
-    stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
-    stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
+    stack.okteto.com/name: "{{ $.Release.Name }}"
+    stack.okteto.com/service: "{{ $name }}"
+    app.kubernetes.io/name: "{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"
     {{- include "stack.labels" $ | nindent 4 }}
 spec:
   replicas: {{ $service.replicas }}
   selector:
     matchLabels:
-      stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
-      stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
+      stack.okteto.com/name: "{{ $.Release.Name }}"
+      stack.okteto.com/service: "{{ $name }}"
   template:
     metadata:
       labels:
-        stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
-        stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
+        stack.okteto.com/name: "{{ $.Release.Name }}"
+        stack.okteto.com/service: "{{ $name }}"
     spec:
       containers:
         - name: "{{ $name }}"

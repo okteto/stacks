@@ -3,12 +3,12 @@ entries:
   stack:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-02-19T12:51:02.662677+01:00"
+    created: "2020-02-20T12:03:24.860519+01:00"
     description: A Helm chart for deploying containerized applications
-    digest: 135ecd02b2eb8012dfe95041b3cdb1a824495282877daa214ce5f146e7c31469
+    digest: e614e68d79227c9abf5d9522a8d6c9bb150e415c5844f492cf658edd287930a5
     name: stack
     type: application
     urls:
     - https://okteto.github.io/stack/chart/stack-0.1.0.tgz
     version: 0.1.0
-generated: "2020-02-19T12:51:02.662112+01:00"
+generated: "2020-02-20T12:03:24.859953+01:00"

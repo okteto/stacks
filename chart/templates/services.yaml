@@ -5,8 +5,9 @@ kind: Service
 metadata:
   name: "{{ $name }}"
   labels:
-    stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
-    stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
+    stack.okteto.com/name: "{{ $.Release.Name }}"
+    stack.okteto.com/service: "{{ $name }}"
+    app.kubernetes.io/name: "{{ $name }}"
     app.kubernetes.io/component: "{{ $name }}"
     {{- include "stack.labels" $ | nindent 4 }}
   {{ if and ($service.public) ($.Values.okteto) }}
@@ -20,8 +21,8 @@ spec:
   - port: {{ $port }}
   {{ end }}
   selector:
-    stack.okteto.com/name: "{{ include "stack.fullname" $ }}"
-    stack.okteto.com/service: "{{ include "stack.fullname" $ }}-{{ $name }}"
+    stack.okteto.com/name: "{{ $.Release.Name }}"
+    stack.okteto.com/service: "{{ $name }}"
 ---
 {{- end }}
 {{- end }}

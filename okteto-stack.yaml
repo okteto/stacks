@@ -1,3 +1,4 @@
+okteto: true
 services:
   vote:
     public: true
