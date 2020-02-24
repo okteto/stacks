@@ -18,9 +18,6 @@ services:
     public: true
     image: dockersamples/examplevotingapp_vote:before
     replicas: 2
-    env:
-      - OPTION_A=Cats
-      - OPTION_B=Dogs
     ports:
       - 80
 
@@ -36,6 +33,8 @@ services:
 
   db:
     image: postgres:9.4
+    env:
+      - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 5432
     volumes:
