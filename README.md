@@ -8,26 +8,26 @@ But exposing helm templates to a developer is just overkill for the majority of 
 
 ## Sample
 
-The next sample is the Okteto Stack definition for the well-known Voting App application. As you can see, it is about 25 lines of yaml:
+The next sample is the Okteto Stack definition for the well-known Voting App application. As you can see, it is about 30 lines of yaml:
 
 ```yaml
 services:
   vote:
     public: true
-    image: dockersamples/examplevotingapp_vote:before
+    image: okteto/vote:1
     replicas: 2
     ports:
       - 80
 
   result:
     public: true
-    image: dockersamples/examplevotingapp_result:before
+    image: okteto/result:1
     command: node server.js
     ports:
       - 80
 
   worker:
-    image: dockersamples/examplevotingapp_worker
+    image: okteto/worker:1
 
   db:
     image: postgres:9.4
@@ -35,6 +35,8 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 5432
+    env:
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - /var/lib/postgresql/data
 
