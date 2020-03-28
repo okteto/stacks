@@ -28,6 +28,7 @@ services:
 
   worker:
     image: okteto/worker:1
+    stop_grace_period: 60
 
   db:
     image: postgres:9.4
