@@ -22,6 +22,9 @@ spec:
         stack.okteto.com/name: "{{ $.Release.Name }}"
         stack.okteto.com/service: "{{ $name }}"
     spec:
+      {{ if $service.stop_grace_period }}
+      terminationGracePeriodSeconds: {{ $service.stop_grace_period }}
+      {{ end }}
       containers:
         - name: "{{ $name }}"
           image: "{{ $service.image }}"
