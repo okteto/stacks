@@ -56,6 +56,22 @@ spec:
               value: {{ (splitn "=" 2 $env)._1 }}
             {{ end }}
           {{ end }}
+          {{ if and $service.healthchecks $service.ports }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ mustFirst $service.ports }}
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ mustFirst $service.ports }}
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 3
+          {{ end }}
 ---
 {{- end }}
 {{- end }}
