@@ -25,6 +25,10 @@ services:
       - 5432
     volumes:
       - /var/lib/postgresql/data
+    resources:
+      cpu: 300m
+      memory: 500Mi
+      disk: 5Gi
 
   redis:
     image: redis:alpine

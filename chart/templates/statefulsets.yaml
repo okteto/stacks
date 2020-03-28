@@ -76,6 +76,23 @@ spec:
             periodSeconds: 30
             failureThreshold: 3
           {{ end }}
+          {{ if $service.resources }}
+          resources:
+            requests:
+              {{ if $service.resources.cpu }}
+              cpu: {{ $service.resources.cpu }}
+              {{ end }}
+              {{ if $service.resources.memory }}
+              memory: {{ $service.resources.memory }}
+              {{ end }}
+            limits:
+              {{ if $service.resources.cpu }}
+              cpu: {{ $service.resources.cpu }}
+              {{ end }}
+              {{ if $service.resources.memory }}
+              memory: {{ $service.resources.memory }}
+              {{ end }}
+          {{ end }}
           volumeMounts:
             {{- range $index, $volume := $service.volumes }}
             - name: "pvc-{{ $index }}"
@@ -93,7 +110,11 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
+            {{ if and ($service.resources) ($service.resources.disk) }}
+            storage: {{ $service.resources.disk }}
+            {{ else }}
             storage: 10Gi
+            {{ end }}
     {{ end }}
 ---
 {{- end }}
