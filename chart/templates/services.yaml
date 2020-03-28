@@ -14,7 +14,8 @@ spec:
   type: {{ if $service.public }}LoadBalancer{{ else }}ClusterIP{{ end }}
   ports:
   {{- range $port := $service.ports }}
-  - port: {{ $port }}
+  -  name: "port-{{ $port }}"
+     port: {{ $port }}
   {{ end }}
   selector:
     stack.okteto.com/name: "{{ $.Release.Name }}"
