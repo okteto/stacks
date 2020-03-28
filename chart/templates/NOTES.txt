@@ -1,1 +1,2 @@
-1. Installed!
+
+Your stack "{{ .Release.Name }}" has been deployed in the namespace "{{ .Release.Namespace }}" successfully!

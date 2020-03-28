@@ -38,6 +38,10 @@ services:
       - 5432
     volumes:
       - /var/lib/postgresql/data
+    resources:
+      cpu: 300m
+      memory: 500Mi
+      disk: 5Gi
 
   redis:
     image: redis:alpine
@@ -53,6 +57,12 @@ To deploy this stack yaml, execute:
 helm install test chart -f okteto-stack.yaml
 ```
 
+To upgrade it:
+
+```console
+helm upgrade test chart -f okteto-stack.yaml
+```
+
 To destroy it:
 
 ```console
@@ -62,5 +72,5 @@ helm uninstall test
 To render the Kubernetes manifests:
 
 ```console
-helm template test ./chart -f okteto-stack.yaml
+helm template test chart -f okteto-stack.yaml
 ```
