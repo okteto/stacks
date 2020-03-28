@@ -31,12 +31,10 @@ services:
 
   db:
     image: postgres:9.4
-    env:
+    environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 5432
-    env:
-      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - /var/lib/postgresql/data
 
