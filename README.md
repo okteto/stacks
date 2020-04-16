@@ -1,4 +1,5 @@
 # Okteto Stacks
+
 A developer-first application format for running containerized applications in k8s
 
 ## Why do we need Okteto Stacks?
@@ -41,7 +42,7 @@ services:
     resources:
       cpu: 300m
       memory: 500Mi
-      disk: 5Gi
+      storage: 5Gi
 
   redis:
     image: redis:alpine
@@ -51,26 +52,8 @@ services:
 
 The equivalent Helm chart would have more than 400 lines of yaml!
 
-To deploy this stack yaml, execute:
+Useful links:
 
-```console
-helm install test chart -f okteto-stack.yaml
-```
-
-To upgrade it:
-
-```console
-helm upgrade test chart -f okteto-stack.yaml
-```
-
-To destroy it:
-
-```console
-helm uninstall test
-```
-
-To render the Kubernetes manifests:
-
-```console
-helm template test chart -f okteto-stack.yaml
-```
+- [Getting started guide](https://github.com/okteto/stacks-getting-started).
+- [Stack manifest reference](https://okteto.com/docs/reference/stacks)
+- [Stack CLI](https://okteto.com/docs/reference/cli#stack)

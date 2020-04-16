@@ -28,7 +28,7 @@ services:
     resources:
       cpu: 300m
       memory: 500Mi
-      disk: 5Gi
+      storage: 5Gi
 
   redis:
     image: redis:alpine
