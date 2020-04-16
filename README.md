@@ -54,6 +54,6 @@ The equivalent Helm chart would have more than 400 lines of yaml!
 
 Useful links:
 
-- [Getting started guide](https://github.com/okteto/stacks-getting-started).
+- [Getting started guide](https://github.com/okteto/stacks-getting-started)
 - [Stack manifest reference](https://okteto.com/docs/reference/stacks)
-- [Stack CLI](https://okteto.com/docs/reference/cli#stack)
+- [Stacks CLI](https://okteto.com/docs/reference/cli#stack)
