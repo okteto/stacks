@@ -1,3 +1,6 @@
+ > [!IMPORTANT]  
+> Okteto Stacks is now deprecated. Okteto now fully supports the Docker Compose format. [Learn more here](https://www.okteto.com/docs/tutorials/compose-getting-started/).
+
 # Okteto Stacks
 
 A developer-first application format for running containerized applications in k8s
